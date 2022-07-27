@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/gitUsersFragment">
+
+    <fragment
+        android:id="@+id/gitUsersFragment"
+        android:name="com.example.gitusers.GitUsersFragment"
+        android:label="GIT Users"
+        tools:layout="@layout/git_users_fragment" >
+        <action
+            android:id="@+id/action_gitUsersFragment_to_userDetailsFragment"
+            app:destination="@id/userDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userDetailsFragment"
+        android:name="com.example.gitusers.UserDetailsFragment"
+        android:label="User Details"
+        tools:layout="@layout/user_details_fragment" >
+        <action
+            android:id="@+id/action_userDetailsFragment_to_gitUsersFragment"
+            app:destination="@id/gitUsersFragment"
+            app:popUpTo="@id/gitUsersFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
