@@ -11,11 +11,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import coil.size.Scale
 import coil.transform.CircleCropTransformation
 import com.example.gitusers.Model.GitUserDataModeListlItem
+import com.google.gson.Gson
 
 
 @Composable
@@ -85,5 +87,21 @@ fun userListItem(
     }
 
 }
+@Composable
+fun Showdetail(index: Int){}
+
+
+@Preview
+@Composable
+fun PreviewUserInTheList(){
+    //TODO add example model to view the design
+    val json = """{}"""
+    val gson = Gson()
+    val gitUserDataModelItem: GitUserDataModeListlItem = gson.fromJson(json, GitUserDataModeListlItem::class.java)
+    var index :Int= 0
+    userListItem(gitUserDataModelItem ,index,index){(index)}
+}
+
+
 
 
