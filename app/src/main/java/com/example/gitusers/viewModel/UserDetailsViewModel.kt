@@ -6,23 +6,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gitusers.Model.GitUserDetailsModel
+import com.example.gitusers.model.GitUserDetailsModel
 import com.example.gitusers.network.GitApiService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserDetailsViewModel : ViewModel() {
+@HiltViewModel
+class UserDetailsViewModel @Inject constructor(): ViewModel() {
     companion object {
         private const val TAG = "GitUsersViewModel"
     }
-
+     /// instances need to replaced by dagger dependancy
+    val gitApiService = GitApiService.getInstance()
     var gitUserDetailsModelAPIResponse: GitUserDetailsModel by mutableStateOf(GitUserDetailsModel())
     var errorMessage: String by mutableStateOf("")
 
     fun getGitUsersDetails(login: String) {
         viewModelScope.launch {
-            val apiService = GitApiService.getInstance()
             try {
-                val response = apiService.getGitUserDetails(login)
+                val response = gitApiService.getGitUserDetails(login)
                 Log.d(TAG, "getGitUsersDetails Response :: $response.code() : $response.message()}")
                 if (response.isSuccessful)//200 OK
                     gitUserDetailsModelAPIResponse = response.body() ?: GitUserDetailsModel();

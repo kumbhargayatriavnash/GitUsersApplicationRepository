@@ -87,14 +87,11 @@ fun userListItem(
     }
 
 }
-@Composable
-fun Showdetail(index: Int){}
 
 
 @Preview
 @Composable
 fun PreviewUserInTheList(){
-    //TODO add example model to view the design
     val json = """{}"""
     val gson = Gson()
     val gitUserDataModelItem: GitUserDataModeListlItem = gson.fromJson(json, GitUserDataModeListlItem::class.java)

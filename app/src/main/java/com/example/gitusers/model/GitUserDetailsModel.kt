@@ -1,4 +1,4 @@
-package com.example.gitusers.Model
+package com.example.gitusers.model
 
 data class GitUserDetailsModel(
     val avatar_url: String? = null,

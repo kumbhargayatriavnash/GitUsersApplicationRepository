@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "89870047038",
+    "project_id": "gitusers-56df1",
+    "storage_bucket": "gitusers-56df1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89870047038:android:fcbc43086d4f14a0bb3e6f",
+        "android_client_info": {
+          "package_name": "com.example.gitusers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "89870047038-vrnrooiqolfcqjmple7g8o5v6c2079hh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMpqQEDvQUlNRsjKQmpaFz2QLr7s_dZvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "89870047038-vrnrooiqolfcqjmple7g8o5v6c2079hh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

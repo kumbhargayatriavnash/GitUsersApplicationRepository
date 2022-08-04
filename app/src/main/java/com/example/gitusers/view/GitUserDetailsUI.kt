@@ -1,15 +1,16 @@
 package com.example.gitusers.view
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Email
+import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -17,33 +18,37 @@ import coil.compose.base.R
 import coil.compose.rememberImagePainter
 import coil.size.Scale
 import coil.transform.CircleCropTransformation
-import com.example.gitusers.Model.GitUserDetailsModel
+import com.example.gitusers.model.GitUserDetailsModel
 import com.google.gson.Gson
 
 @Composable
 fun userDetails(
     gitUserDetailsModel: GitUserDetailsModel
-){
+) {
+    MaterialTheme {
 
-    Scaffold() {
-        Column() {
+        Card(
+            modifier = Modifier
+                .padding(8.dp, 4.dp)
+                .fillMaxWidth(), shape = RoundedCornerShape(8.dp), elevation = 4.dp
+
+        ) {
+            Surface() {
+                Column(
+                    Modifier
+                        .padding(4.dp)
+                        .fillMaxSize()
+                ) {
+
+                    Row(
+                        Modifier
+                            .padding(4.dp)
+                            .height(110.dp)
 
 
-            Column(
-                verticalArrangement = Arrangement.Top,
-                modifier = Modifier.padding(20.dp)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-
-                    Surface(
-                        modifier = Modifier
-
-                            .size(80.dp), shape = CircleShape, elevation = 4.dp
                     ) {
 
                         Image(
-
-
                             painter = rememberImagePainter(
                                 data = gitUserDetailsModel.avatar_url,
 
@@ -54,57 +59,90 @@ fun userDetails(
 
                                 }
                             ),
-                            contentDescription = gitUserDetailsModel.id.toString(),
+                            contentDescription = gitUserDetailsModel.name.toString(),
                             modifier = Modifier
                                 .fillMaxHeight()
                                 .weight(0.2f)
                                 .padding(4.dp)
-                                .fillMaxWidth(),
+                        )
+
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .padding(4.dp)
+                                .weight(0.8f)
+                        ) {
+                            Text(
+                                text = "  ${gitUserDetailsModel.name}",
+                                style = MaterialTheme.typography.subtitle1,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = "  ${gitUserDetailsModel.login}",
+                                style = MaterialTheme.typography.subtitle1,
+                                fontWeight = FontWeight.Normal
+                            )
+                            Row() {
+                                Icon(Icons.Rounded.LocationOn, contentDescription = "Localized description")
+
+                                Text(
+                                    text = "  ${gitUserDetailsModel.location}",
+                                    style = MaterialTheme.typography.subtitle1,
+                                    fontWeight = FontWeight.Normal
+                                )
+                            }
 
 
-                            contentScale = ContentScale.FillBounds
+                        }
+                    }
 
+                    Row() {
+                        //Icon(Icons.Rounded.Person, contentDescription = "Localized description")
+                        Text(
+                            text = "  ${gitUserDetailsModel.followers} Followers . ${gitUserDetailsModel.following} Following",
+                            style = MaterialTheme.typography.subtitle1,
+                            fontWeight = FontWeight.Normal
                         )
                     }
 
-                    Spacer(modifier = Modifier.width(30.dp))
-                    BuildDashboard(gitUserDetailsModel.followers.toString(), "Posts")
+                    Row() {
+                        Icon(Icons.Rounded.Info, contentDescription = "Localized description")
 
-                    Spacer(modifier = Modifier.width(30.dp))
-                    BuildDashboard(gitUserDetailsModel.followers.toString(), "Followers")
-                    Spacer(modifier = Modifier.width(30.dp))
-                    BuildDashboard(gitUserDetailsModel.following.toString(), "following")
+                        Text(
+                            text = "  ${gitUserDetailsModel.bio}",
+                            style = MaterialTheme.typography.subtitle1,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+
+
+
+                    Row() {
+                        Icon(Icons.Rounded.Email, contentDescription = "Localized description")
+
+                        Text(
+                            text = "  Email: ${gitUserDetailsModel.email}",
+                            style = MaterialTheme.typography.subtitle1,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+
+
+
+
+
                 }
-                Text(text = gitUserDetailsModel.bio.toString())
-
-
             }
-            //PostTabView(userData.imagePost)
+
+
         }
     }
-
-
-
-
 }
 
-
-
-
-@Composable
-fun BuildDashboard(count: String, name: String) {
-    Column(
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(text = count, fontWeight = FontWeight.Bold)
-        Text(text = name, fontWeight = FontWeight.Normal)
-    }
-}
 
 @Preview
 @Composable
-fun PreviewUserDetails(){
-    //TODO add example model to view the design
+fun PreviewUserDetails() {
     val json = """{
   "login": "brynary",
   "id": 19,
@@ -140,6 +178,7 @@ fun PreviewUserDetails(){
   "updated_at": "2022-07-26T16:45:52Z"
 }"""
     val gson = Gson()
-    val gitUserDetailsModel: GitUserDetailsModel = gson.fromJson(json, GitUserDetailsModel::class.java)
+    val gitUserDetailsModel: GitUserDetailsModel =
+        gson.fromJson(json, GitUserDetailsModel::class.java)
     userDetails(gitUserDetailsModel)
 }

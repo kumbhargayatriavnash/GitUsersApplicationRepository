@@ -1,7 +1,7 @@
 package com.example.gitusers.network
 
 import com.example.gitusers.Model.GitUserDataModeListlItem
-import com.example.gitusers.Model.GitUserDetailsModel
+import com.example.gitusers.model.GitUserDetailsModel
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,6 +14,9 @@ interface GitApiService {
 
     @GET("users/{USERNAME}")
     suspend fun getGitUserDetails(@Path("USERNAME") login: String): Response<GitUserDetailsModel>
+
+    @GET("users/{USERNAME}/followers")
+    suspend fun getGitUsersFollowers(@Path("USERNAME") login: String):Response<List<GitUserDataModeListlItem>>
 
     companion object {
         var gitApiService: GitApiService? = null

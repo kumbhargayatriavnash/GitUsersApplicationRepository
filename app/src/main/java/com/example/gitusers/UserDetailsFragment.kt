@@ -5,21 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Surface
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.gitusers.Model.GitUserDataModeListlItem
-import com.example.gitusers.Model.GitUserDetailsModel
+import com.example.gitusers.model.GitUserDetailsModel
 import com.example.gitusers.view.userDetails
-import com.example.gitusers.view.userListItem
 import com.example.gitusers.viewModel.UserDetailsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UserDetailsFragment : Fragment() {
 
     private lateinit var userDetailsViewModel: UserDetailsViewModel
@@ -54,6 +50,5 @@ class UserDetailsFragment : Fragment() {
     @Composable
     fun showGitUsersDetails(gitUserDetailsModel: GitUserDetailsModel) {
             userDetails(gitUserDetailsModel)
-
         }
 }
