@@ -13,12 +13,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UserDetailsViewModel @Inject constructor(): ViewModel() {
+class UserDetailsViewModel @Inject constructor(
+    private val gitApiService: GitApiService
+) : ViewModel() {
     companion object {
         private const val TAG = "GitUsersViewModel"
     }
-     /// instances need to replaced by dagger dependancy
-    val gitApiService = GitApiService.getInstance()
+
     var gitUserDetailsModelAPIResponse: GitUserDetailsModel by mutableStateOf(GitUserDetailsModel())
     var errorMessage: String by mutableStateOf("")
 
@@ -29,16 +30,23 @@ class UserDetailsViewModel @Inject constructor(): ViewModel() {
                 Log.d(TAG, "getGitUsersDetails Response :: $response.code() : $response.message()}")
                 if (response.isSuccessful)//200 OK
                     gitUserDetailsModelAPIResponse = response.body() ?: GitUserDetailsModel();
-                else //404 Resource not found
+                else { //404 Resource not found
                     Log.e(
                         TAG,
                         "getGitUsersDetails: ERROR :: $response.code() : ${response.message()}}"
                     )
-                //TODO show error dialog when response not success
+                    showError("ERROR :: $response.code() : ${response.message()}")
+                    //TODO show error dialog when response not success
+                }
             } catch (e: Exception) {
                 errorMessage = e.message.toString()
                 Log.e(TAG, "getGitUsersDetails: ERROR :: $errorMessage")
+                showError("Error in loding User details")
             }
         }
+    }
+
+    private fun showError(error: String) {
+
     }
 }

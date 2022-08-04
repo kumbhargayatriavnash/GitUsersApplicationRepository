@@ -13,31 +13,46 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GitUsersViewModel @Inject constructor(): ViewModel() {
+class GitUsersViewModel @Inject constructor(
+    private val gitApiService: GitApiService
+) : ViewModel() {
     companion object {
         private const val TAG = "GitUsersViewModel"
     }
 
     var gitUsersListAPIResponese: List<GitUserDataModeListlItem> by mutableStateOf(listOf())
     var errorMessage: String by mutableStateOf("")
-    private val apiService = GitApiService.getInstance()
+
 
     fun getGitUsersList() {
         viewModelScope.launch {
 
             try {
-                val response = apiService.getGitUsers()
-                Log.d(Companion.TAG, "getGitUsersList Response :: $response.code() : ${response.message()}}")
+                val response = gitApiService.getGitUsers()
+                Log.d(
+                    Companion.TAG,
+                    "getGitUsersList Response :: $response.code() : ${response.message()}}"
+                )
                 if (response.isSuccessful)//code 200 OK
                     gitUsersListAPIResponese = response.body() ?: emptyList();
-                else //304 not modified
-                    Log.e(Companion.TAG, "getGitUsersList: ERROR :: $response.code() : ${response.message()}}")
+                else {//304 not modified
+                    Log.e(
+                        Companion.TAG,
+                        "getGitUsersList: ERROR :: $response.code() : ${response.message()}}"
+                    )
+                    showError()
+                }
                 //TODO show error dialog when response not success
             } catch (e: Exception) {
                 errorMessage = e.message.toString()
                 Log.e(Companion.TAG, "getGitUsersList: ERROR :: $errorMessage")
+                showError()
             }
         }
+    }
+
+    private fun showError() {
+
     }
 }
 

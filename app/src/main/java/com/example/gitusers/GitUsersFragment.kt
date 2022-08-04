@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.gitusers.Model.GitUserDataModeListlItem
 import com.example.gitusers.view.userListItem
@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class GitUsersFragment() : Fragment() {
-    private val gitUsersViewModel : GitUsersViewModel by hiltNavGraphViewModels(R.id.my_nav)
+    private val gitUsersViewModel : GitUsersViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
