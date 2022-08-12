@@ -22,6 +22,7 @@ class UserDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // test commit
         val view = inflater.inflate(R.layout.user_details_fragment, container, false)
             .apply {
                 findViewById<ComposeView>(R.id.detailsComposeView).setContent {
